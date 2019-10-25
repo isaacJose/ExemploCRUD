@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ExemploCRUD</string>
+    <string name="nome">Nome:</string>
+    <string name="cpf">CPF:</string>
+    <string name="Telefone">Telefone:</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="buscar">Buscar</string>
+    <string name="atualizar">Atualizar</string>
+    <string name="excluir">Excluir</string>
+    <string name="listar">Listar Alunos</string>
+    <string name="salvar">Salvar</string>
+    <string name="voltar">Voltar</string>
+    <string name="sair">Sair</string>
+
+</resources>
