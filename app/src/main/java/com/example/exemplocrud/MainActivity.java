@@ -2,8 +2,10 @@ package com.example.exemplocrud;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    protected void onRestart(){
+        super.onRestart();
+        et_nome.setText("");
+        et_cpf.setText("");
+        et_telefone.setText("");
+    }
+
     private void configurarBotoes(){
         et_nome = findViewById(R.id.et_nome);
         et_cpf = findViewById(R.id.et_cpf);
@@ -57,7 +66,16 @@ public class MainActivity extends AppCompatActivity {
         bt_salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(aluno == null) {
+
+                if(validaCampos()){
+                    AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Aviso")
+                            .setMessage("Há campos inválidos ou em branco!")
+                            .setNeutralButton("OK",null).create();
+                    dialog.show();
+                }
+
+                else if(aluno == null) {
                     aluno = new Aluno();
                     aluno.setNome(et_nome.getText().toString());
                     aluno.setCpf(et_cpf.getText().toString());
@@ -65,13 +83,13 @@ public class MainActivity extends AppCompatActivity {
 
                     long id = dao.inserir(aluno);
                     Toast.makeText(MainActivity.this, "Aluno inserido com id: " + id, Toast.LENGTH_SHORT).show();
-                } else{
+                }
+                else{
                     aluno.setNome(et_nome.getText().toString());
                     aluno.setCpf(et_cpf.getText().toString());
                     aluno.setTelefone(et_telefone.getText().toString());
                     dao.atualizar(aluno);
                     Toast.makeText(MainActivity.this, "Aluno atualizado", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
@@ -107,5 +125,41 @@ public class MainActivity extends AppCompatActivity {
         MaskTextWatcher mtw_cpf = new MaskTextWatcher(et_cpf,smf_cpf);
         et_cpf.addTextChangedListener(mtw_cpf);
 
+    }
+
+    private boolean  validaCampos(){
+
+        boolean res = false;
+
+        String nome = et_nome.getText().toString();
+        String cpf = et_cpf.getText().toString();
+        String telefone = et_telefone.getText().toString();
+
+        if (isCampoVazio(nome)){
+            et_nome.requestFocus();
+            res = true;
+        }
+        else{
+            if (isCampoVazio(cpf)){
+                et_cpf.requestFocus();
+                res = true;
+            }
+            else {
+                if (isCampoVazio(telefone)){
+                    et_telefone.requestFocus();
+                    res = true;
+                }
+            }
+        }
+        if (res){
+            return true;
+        }
+        return false;
+        }
+
+    private boolean isCampoVazio(String valor){
+
+        boolean resultado = (TextUtils.isEmpty(valor) || valor.trim().isEmpty());   //Trim, retira todos os espaços
+        return  resultado;
     }
 }
