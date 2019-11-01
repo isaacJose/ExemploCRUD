@@ -3,6 +3,7 @@ package com.example.exemplocrud;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -104,7 +105,17 @@ public class MainActivity extends AppCompatActivity {
         bt_sair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+              new  AlertDialog.Builder(MainActivity.this)
+                        .setMessage("Deseja realmente sair?")
+                        .setCancelable(false)
+                        .setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                MainActivity.this.finish();
+                            }
+                        })
+                        .setNegativeButton("NÃO",null)
+                        .show();
             }
         });
     }
@@ -161,5 +172,20 @@ public class MainActivity extends AppCompatActivity {
 
         boolean resultado = (TextUtils.isEmpty(valor) || valor.trim().isEmpty());   //Trim, retira todos os espaços
         return  resultado;
+    }
+
+    @Override
+    public void onBackPressed(){
+        new AlertDialog.Builder(this)
+                .setMessage("Deseja realmente sair?")
+                .setCancelable(false)
+                .setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("NÃO",null)
+                .show();
     }
 }
