@@ -40,12 +40,14 @@ public class AlunoAdapter extends BaseAdapter {
         TextView tv_nome = view.findViewById(R.id.tv_nome);
         TextView tv_cpf = view.findViewById(R.id.tv_cpf);
         TextView tv_telefone = view.findViewById(R.id.tv_telefone);
+        TextView tv_email = view.findViewById(R.id.tv_email);
 
         Aluno aluno = alunos.get(position);
 
         tv_nome.setText(aluno.getNome());
         tv_cpf.setText(aluno.getCpf());
         tv_telefone.setText(aluno.getTelefone());
+        tv_email.setText(aluno.getEmail());
 
         return view;
 

@@ -51,7 +51,7 @@ public class Main2Activity extends AppCompatActivity {
         bt_voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Main2Activity.this.finish();
             }
         });
     }

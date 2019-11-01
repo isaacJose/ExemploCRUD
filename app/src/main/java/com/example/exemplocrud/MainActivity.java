@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText et_nome;
     private EditText et_cpf;
     private EditText et_telefone;
+    private EditText et_email;
     private Button bt_salvar;
     private Button bt_listar;
     private Button bt_sair;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             et_nome.setText(aluno.getNome());
             et_cpf.setText(aluno.getCpf());
             et_telefone.setText(aluno.getTelefone());
+            et_email.setText(aluno.getEmail());
         }
     }
 
@@ -49,12 +52,14 @@ public class MainActivity extends AppCompatActivity {
         et_nome.setText("");
         et_cpf.setText("");
         et_telefone.setText("");
+        et_email.setText("");
     }
 
     private void configurarBotoes(){
         et_nome = findViewById(R.id.et_nome);
         et_cpf = findViewById(R.id.et_cpf);
         et_telefone = findViewById(R.id.et_telefone);
+        et_email = findViewById(R.id.et_email);
         bt_salvar = findViewById(R.id.bt_salvar);
         bt_listar = findViewById(R.id.bt_listar);
         bt_sair = findViewById(R.id.bt_sair);
@@ -81,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     aluno.setNome(et_nome.getText().toString());
                     aluno.setCpf(et_cpf.getText().toString());
                     aluno.setTelefone(et_telefone.getText().toString());
+                    aluno.setEmail(et_email.getText().toString());
 
                     long id = dao.inserir(aluno);
                     Toast.makeText(MainActivity.this, "Aluno inserido com id: " + id, Toast.LENGTH_SHORT).show();
@@ -89,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     aluno.setNome(et_nome.getText().toString());
                     aluno.setCpf(et_cpf.getText().toString());
                     aluno.setTelefone(et_telefone.getText().toString());
+                    aluno.setEmail(et_email.getText().toString());
                     dao.atualizar(aluno);
                     Toast.makeText(MainActivity.this, "Aluno atualizado", Toast.LENGTH_SHORT).show();
                 }
@@ -145,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         String nome = et_nome.getText().toString();
         String cpf = et_cpf.getText().toString();
         String telefone = et_telefone.getText().toString();
+        String email = et_email.getText().toString();
 
         if (isCampoVazio(nome)){
             et_nome.requestFocus();
@@ -160,6 +168,12 @@ public class MainActivity extends AppCompatActivity {
                     et_telefone.requestFocus();
                     res = true;
                 }
+                else {
+                    if (!isEmailValido(email)) {
+                        et_email.requestFocus();
+                        res = true;
+                    }
+                }
             }
         }
         if (res){
@@ -174,7 +188,13 @@ public class MainActivity extends AppCompatActivity {
         return  resultado;
     }
 
-    @Override
+    //VALIDANDO E-MAIL
+    private boolean isEmailValido(String email){
+        boolean resultado = (!isCampoVazio(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());  //Patterns testa alguns padrões (domínio, url, e-mail)
+        return resultado;
+    }
+
+    /*@Override
     public void onBackPressed(){
         new AlertDialog.Builder(this)
                 .setMessage("Deseja realmente sair?")
@@ -187,5 +207,5 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("NÃO",null)
                 .show();
-    }
+    }*/
 }

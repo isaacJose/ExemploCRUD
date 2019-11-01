@@ -2,6 +2,7 @@
     <string name="app_name">ExemploCRUD</string>
     <string name="nome">Nome:</string>
     <string name="cpf">CPF:</string>
+    <string name="email">E-mail:</string>
     <string name="Telefone">Telefone:</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="buscar">Buscar</string>
@@ -12,6 +13,7 @@
     <string name="salvar">Salvar</string>
     <string name="voltar">Voltar</string>
     <string name="sair">Sair</string>
+    <string name="temp_splash">3000</string>
 
 
 </resources>
