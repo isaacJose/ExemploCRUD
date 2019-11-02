@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void carregarActivity(){
         startActivity(new Intent(this,Main2Activity.class));
+        MainActivity.this.finish();
     }
 
     private void mascara(){
@@ -194,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         return resultado;
     }
 
-    /*@Override
+    @Override
     public void onBackPressed(){
         new AlertDialog.Builder(this)
                 .setMessage("Deseja realmente sair?")
@@ -207,5 +208,5 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("NÃO",null)
                 .show();
-    }*/
+    }
 }

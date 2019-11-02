@@ -48,9 +48,11 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     private void carregarBotoes(){
+
         bt_voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(Main2Activity.this, MainActivity.class));
                 Main2Activity.this.finish();
             }
         });
@@ -124,6 +126,7 @@ public class Main2Activity extends AppCompatActivity {
         /*Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);*/
         startActivity(new Intent(this,MainActivity.class));
+        Main2Activity.this.finish();
     }
 
     public void buscarAluno(String nome){
@@ -143,6 +146,12 @@ public class Main2Activity extends AppCompatActivity {
         alunosFiltrados.clear();
         alunosFiltrados.addAll(alunos);
         lv_alunos.invalidateViews();
+    }
+
+    @Override
+    public void onBackPressed(){
+        startActivity(new Intent(Main2Activity.this, MainActivity.class));
+        Main2Activity.this.finish();
     }
 
 
